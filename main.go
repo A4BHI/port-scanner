@@ -4,21 +4,23 @@ import (
 	"fmt"
 	"net"
 	"strconv"
+	"time"
 )
 
 func ScanPort(target string) {
 	for port := 1; port <= 1024; port++ {
-		conn, err := net.Dial("tcp", target+":"+strconv.Itoa(port))
+		address := target + ":" + strconv.Itoa(port)
+
+		conn, err := net.DialTimeout("tcp", address, 500*time.Millisecond)
 		if err != nil {
-			fmt.Println("Closed Port: ", port)
 			continue
 		}
 
-		defer conn.Close()
-		fmt.Println("Port is open:", port)
+		fmt.Println("Open port:", port)
+		conn.Close()
 	}
 }
 
 func main() {
-	ScanPort("nil")
+	ScanPort("fulva.in")
 }
