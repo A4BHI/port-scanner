@@ -7,20 +7,24 @@ import (
 	"time"
 )
 
-func ScanPort(target string) {
-	for port := 1; port <= 1024; port++ {
-		address := target + ":" + strconv.Itoa(port)
+func ScanPort(target string, port int) {
 
-		conn, err := net.DialTimeout("tcp", address, 500*time.Millisecond)
-		if err != nil {
-			continue
-		}
+	address := target + ":" + strconv.Itoa(port)
 
-		fmt.Println("Open port:", port)
-		conn.Close()
+	conn, err := net.DialTimeout("tcp", address, 500*time.Millisecond)
+	if err != nil {
+		fmt.Println("Closed Port:", port)
 	}
+
+	fmt.Println("Open port:", port)
+	conn.Close()
+
 }
 
 func main() {
+	for port := 1; port <= 1024; port++ {
+		go ScanPort("", port)
+		continue
 
+	}
 }
