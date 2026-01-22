@@ -25,6 +25,12 @@ func ScanPort(target string, port int, wg *sync.WaitGroup) {
 
 }
 
+func ScanRestOfThePorts(target string, ports []string) {
+	for _, ports := range ports {
+
+	}
+}
+
 func main() {
 	s := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter the target ip or domain: ")
@@ -36,6 +42,7 @@ func main() {
 	for port := 1; port <= 1024; port++ {
 		wg.Add(1)
 		go ScanPort(in, port, &wg)
+
 		continue
 
 	}
