@@ -47,15 +47,16 @@ func main() {
 	// var ports []string
 	ports := []string{"8080", "3389", "1443", "3306", "3389", "5900"}
 
-	var wg sync.WaitGroup
+	var wg1, wg2 sync.WaitGroup
 	for port := 1; port <= 1024; port++ {
-		wg.Add(1)
-		go ScanPort(in, port, &wg)
-		wg.Add(1)
-		go ScanRestOfThePorts(in, ports, &wg)
+		wg1.Add(1)
+		go ScanPort(in, port, &wg1)
 
+		wg2.Add(1)
+		go ScanRestOfThePorts(in, ports, &wg2)
 		continue
 
 	}
-	wg.Wait()
+	wg1.Wait()
+	wg2.Wait()
 }
