@@ -17,7 +17,6 @@ func main() {
 	}
 
 	up := tgbotapi.NewUpdate(0)
-	up.Timeout = 60
 
 	updates := tgbot.GetUpdatesChan(up)
 	for updates := range updates {
@@ -27,4 +26,11 @@ func main() {
 
 		fmt.Println(updates.Message.Chat.UserName + ":" + updates.Message.Text)
 	}
+
+	command := tgbotapi.NewBotCommandScopeDefault()
+
+	tgbotapi.NewSetMyCommands("gsd")
+	cmds := []tgbotapi.BotCommand{}
+	cmds = append(cmds, tgbotapi.BotCommand{Command: "port-scanner", Description: "Enter Domain or IP adress to scan ports"},
+		tgbotapi.BotCommand{Command: "ping", Description: "You can check if the bot is alive"})
 }
