@@ -26,11 +26,15 @@ func main() {
 
 		fmt.Println(updates.Message.Chat.UserName + ":" + updates.Message.Text)
 	}
-
-	command := tgbotapi.NewBotCommandScopeDefault()
-
-	tgbotapi.NewSetMyCommands("gsd")
 	cmds := []tgbotapi.BotCommand{}
 	cmds = append(cmds, tgbotapi.BotCommand{Command: "port-scanner", Description: "Enter Domain or IP adress to scan ports"},
 		tgbotapi.BotCommand{Command: "ping", Description: "You can check if the bot is alive"})
+
+	config := tgbotapi.NewSetMyCommands(cmds...)
+
+	_, err = tgbot.Request(config)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 }
