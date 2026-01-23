@@ -17,8 +17,13 @@ func main() {
 	}
 
 	cmds := []tgbotapi.BotCommand{}
-	cmds = append(cmds, tgbotapi.BotCommand{Command: "port_scanner", Description: "Enter Domain or IP adress to scan ports"},
-		tgbotapi.BotCommand{Command: "ping", Description: "You can check if the bot is alive"})
+	cmds = append(cmds,
+		tgbotapi.BotCommand{
+			Command:     "port_scanner",
+			Description: "Enter Domain or IP adress to scan ports"},
+		tgbotapi.BotCommand{
+			Command:     "ping",
+			Description: "You can check if the bot is alive"})
 
 	config := tgbotapi.NewSetMyCommands(cmds...)
 
