@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -18,5 +19,10 @@ func main() {
 	up := tgbotapi.NewUpdate(0)
 	up.Timeout = 60
 
-	msges, err := tgbot.GetUpdates(up)
+	updates, err := tgbot.GetUpdates(up)
+	for _, update := range updates {
+		if update.Message != nil {
+			fmt.Println(update.Message.Text)
+		}
+	}
 }
