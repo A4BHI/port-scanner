@@ -1,10 +1,8 @@
 package portscanner
 
 import (
-	"fmt"
 	"net"
 	"strconv"
-	"sync"
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -27,17 +25,17 @@ func ScanPort(target string, updates *tgbotapi.Update) {
 
 	}
 
-}
-
-func ScanRestOfThePorts(target string, ports []string, wg *sync.WaitGroup) {
-	defer wg.Done()
-	for _, ports := range ports {
-		address := target + ":" + ports
-		conn, err := net.DialTimeout("tcp", address, 1000*time.Millisecond)
-		if err != nil {
-			continue
+	extraPorts := []string{"8080", "3389", "1443", "3306", "3389", "5900"}
+	go func() {
+		for _, ports := range extraPorts {
+			address := target + ":" + ports
+			conn, err := net.DialTimeout("tcp", address, 1000*time.Millisecond)
+			if err != nil {
+				continue
+			}
+			OpenPorts = append(OpenPorts, ports)
+			conn.Close()
 		}
-		fmt.Println("Open Port: ", ports)
-		conn.Close()
-	}
+	}()
+
 }
