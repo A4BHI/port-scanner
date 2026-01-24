@@ -32,21 +32,23 @@ func ScanPort(target string, updates *tgbotapi.Update, tgbot tgbotapi.BotAPI) {
 	}
 
 	extraPorts := []string{"8080", "3389", "1443", "3306", "3389", "5900"}
-	wg.Add(1)
-	go func() {
 
-		defer wg.Done()
-		for _, ports := range extraPorts {
-			address := target + ":" + ports
+	for _, ports := range extraPorts {
+		wg.Add(1)
+		address := target + ":" + ports
+		go func() {
+			defer wg.Done()
 			conn, err := net.DialTimeout("tcp", address, 1000*time.Millisecond)
 			if err != nil {
 				fmt.Println(err)
-				continue
+				return
 			}
 			OpenPorts = append(OpenPorts, ports)
 			conn.Close()
-		}
-	}()
+		}()
+
+	}
+
 	wg.Wait()
 	stringBuilder := "\nOpen Port:"
 	var temp string
