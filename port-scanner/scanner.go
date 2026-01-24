@@ -10,7 +10,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-func ScanPort(target string, updates *tgbotapi.Update) {
+func ScanPort(target string, updates *tgbotapi.Update, tgbot tgbotapi.BotAPI) {
 	var wg sync.WaitGroup
 	var OpenPorts []string
 	for port := 1; port <= 1024; port++ {
@@ -46,5 +46,14 @@ func ScanPort(target string, updates *tgbotapi.Update) {
 		}
 	}()
 	wg.Wait()
+	stringBuilder := "\nOpen Port:"
+	var temp string
+	for _, port := range OpenPorts {
+		temp += stringBuilder + port
+	}
+
+	reply := tgbotapi.NewMessage(updates.Message.Chat.ID, temp)
+	reply.ReplyToMessageID = updates.Message.MessageID
+	tgbot.Send(reply)
 	fmt.Println(OpenPorts)
 }

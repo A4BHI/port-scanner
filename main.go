@@ -61,7 +61,7 @@ func main() {
 			reply.ReplyToMessageID = updates.Message.MessageID
 			tgbot.Send(reply)
 
-			portscanner.ScanPort(arg, &updates)
+			portscanner.ScanPort(arg, &updates, *tgbot)
 
 		}
 
