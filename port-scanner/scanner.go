@@ -60,4 +60,5 @@ func ScanPort(target string, updates *tgbotapi.Update, tgbot tgbotapi.BotAPI) {
 	reply.ReplyToMessageID = updates.Message.MessageID
 	tgbot.Send(reply)
 	fmt.Println(OpenPorts)
+	Services()
 }
