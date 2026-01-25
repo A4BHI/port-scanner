@@ -1,6 +1,7 @@
 package portscanner
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 )
@@ -19,13 +20,10 @@ func Services() {
 		fmt.Println(err)
 	}
 
-	b := []byte{}
-
-	_, err = file.Read(b)
-	if err != nil {
-		fmt.Println(err)
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
 	}
 
-	fmt.Println(string(b))
 	//fuvk
 }
