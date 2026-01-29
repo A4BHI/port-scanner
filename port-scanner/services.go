@@ -4,8 +4,12 @@ type DB struct {
 	Port map[string]string
 }
 
-func (db *DB) LookUP() (serivcename string) {
+func (db *DB) LookUP(portno string) (serivcename string) {
+	if name, ok := db.Port[portno]; ok {
+		return name
+	}
 
+	return "unknown"
 }
 
 // var SlicesOfservice []Service
