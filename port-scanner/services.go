@@ -4,10 +4,9 @@ type DB struct {
 	Port map[string]string
 }
 
-// type Service struct {
-// 	service string
-// 	port    string
-// }
+func (db *DB) LookUP() (serivcename string) {
+
+}
 
 // var SlicesOfservice []Service
 
