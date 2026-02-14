@@ -30,14 +30,16 @@ func LoadService(path string) (*DB, error) {
 	for scanner.Scan() {
 
 		lines := scanner.Text()
-		if lines[0] == '#' {
-			continue
-		}
 		if len(lines) == 0 {
 			continue
 		}
+		if lines[0] == '#' {
+			continue
+		}
+
 		field := strings.Fields(lines)
-		fmt.Println(field)
+
+		fmt.Println(field[0], field[1])
 
 	}
 
