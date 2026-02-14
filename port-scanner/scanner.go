@@ -10,7 +10,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-func ScanPort(target string, updates *tgbotapi.Update, tgbot tgbotapi.BotAPI) {
+func ScanPort(target string, updates *tgbotapi.Update, tgbot tgbotapi.BotAPI, db DB) {
 	var wg sync.WaitGroup
 	var OpenPorts []string
 	for port := 1; port <= 1024; port++ {
