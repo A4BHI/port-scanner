@@ -29,7 +29,6 @@ func LoadService(path string) (*DB, error) {
 		log.Fatal(err)
 	}
 
-	SandP := &ServicesAndProtocols{}
 	db := &DB{
 		Port: make(map[string]ServicesAndProtocols),
 	}
@@ -46,12 +45,13 @@ func LoadService(path string) (*DB, error) {
 
 		field := strings.Fields(lines)
 		ports := strings.Split(field[1], "/")
-		SandP.NameOfService = field[0]
-		SandP.Protocol = ports[1]
 
 		// fmt.Println(field[0], field[1])
 
-		db.Port[field[0]] = *SandP
+		db.Port[field[1]] = ServicesAndProtocols{
+			NameOfService: field[0],
+			Protocol:      ports[1],
+		}
 
 	}
 
