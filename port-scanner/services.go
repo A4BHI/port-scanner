@@ -45,7 +45,7 @@ func LoadService(path string) (*DB, error) {
 		field := strings.Fields(lines)
 		ports := strings.Split(field[1], "/")
 
-		if ports[1] != "tcp" {
+		if strings.ToLower(ports[1]) != "tcp" {
 			continue
 		}
 		db.Port[ports[0]] = field[0]
