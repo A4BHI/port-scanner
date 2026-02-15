@@ -2,7 +2,6 @@ package portscanner
 
 import (
 	"bufio"
-	"log"
 	"os"
 	"strings"
 )
@@ -26,9 +25,9 @@ func (db *DB) LookUP(portno string) (serivcename string, protocol string) {
 func LoadService(path string) (*DB, error) {
 	file, err := os.Open(path)
 	if err != nil {
-		log.Fatal(err)
+		return &DB{}, err
 	}
-
+	defer file.Close()
 	db := &DB{
 		Port: make(map[string]ServicesAndProtocols),
 	}
@@ -46,7 +45,6 @@ func LoadService(path string) (*DB, error) {
 		field := strings.Fields(lines)
 		ports := strings.Split(field[1], "/")
 
-		// fmt.Println(field[0], field[1])
 		if ports[1] != "tcp" {
 			continue
 		}
@@ -56,8 +54,6 @@ func LoadService(path string) (*DB, error) {
 		}
 
 	}
-
-	// fmt.Println(db)
 
 	return db, err
 }
