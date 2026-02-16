@@ -29,6 +29,7 @@ func main() {
 	}
 
 	godotenv.Load()
+
 	tgbot, err := tgbotapi.NewBotAPI(os.Getenv("BOT_API"))
 	if err != nil {
 		log.Fatal("error: ", err)
@@ -59,10 +60,19 @@ func main() {
 		}
 
 		if !updates.Message.IsCommand() {
-			fmt.Println(updates.Message.Chat.UserName + ":" + updates.Message.Text)
+			switch {
+			case updates.Message.Document != nil:
+				reply := tgbotapi.NewMessage(updates.Message.Chat.ID, "With or Without Password reply yes or no")
+				reply.ReplyToMessageID = updates.Message.MessageID
+				tgbot.Send(reply)
+				if updates.Message.Text == "yes" {
+					fmt.Println("Working")
+				}
+			}
 			continue
 		}
 
+		//Commands Area
 		switch updates.Message.Command() {
 		case "port_scanner":
 			// if db == nil {
