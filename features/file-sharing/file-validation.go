@@ -1,0 +1,5 @@
+package filesharing
+
+func ValidateFile() {
+
+}

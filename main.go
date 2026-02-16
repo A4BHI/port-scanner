@@ -65,9 +65,7 @@ func main() {
 				reply := tgbotapi.NewMessage(updates.Message.Chat.ID, "With or Without Password reply yes or no")
 				reply.ReplyToMessageID = updates.Message.MessageID
 				tgbot.Send(reply)
-				if updates.Message.Text == "yes" {
-					fmt.Println("Working")
-				}
+
 			}
 			continue
 		}
