@@ -1,16 +1,18 @@
 package filesharing
 
-import tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+import (
+	"fmt"
 
-func ValidateFile(filetype string, fileid string, update *tgbotapi.Update) bool {
-	// switch filetype{
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+)
 
-	// }
+func ValidateFile(fileid string, update *tgbotapi.Update) bool {
 
 	switch {
 	case update.Message.Document != nil:
 		mime := update.Message.Document.MimeType
-		if mime == "exe" {
+		fmt.Println(mime)
+		if mime == "image/jpeg" {
 			return false
 		}
 		return true

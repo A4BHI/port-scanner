@@ -68,7 +68,8 @@ func main() {
 					reply := tgbotapi.NewMessage(updates.Message.Chat.ID, "exe file extensions are not supported.")
 					reply.ReplyToMessageID = updates.Message.MessageID
 					tgbot.Send(reply)
-					return
+					continue
+
 				}
 				reply := tgbotapi.NewMessage(updates.Message.Chat.ID, "With or Without Password reply yes or no")
 				reply.ReplyToMessageID = updates.Message.MessageID
