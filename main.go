@@ -79,9 +79,14 @@ func main() {
 
 				}
 
-				// reply := tgbotapi.NewMessage(updates.Message.Chat.ID, "With or Without Password reply yes or no")
-				// reply.ReplyToMessageID = updates.Message.MessageID
-				// tgbot.Send(reply)
+				reply := tgbotapi.NewMessage(updates.Message.Chat.ID, "With or Without Password reply yes or no")
+				reply.ReplyToMessageID = updates.Message.MessageID
+				tgbot.Send(reply)
+
+				userstate[updates.Message.Chat.ID] = PendingUpload{
+					Fileid: updates.Message.Document.FileID,
+					State:  "Awaiting_Response",
+				}
 
 			}
 			continue
