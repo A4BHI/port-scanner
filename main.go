@@ -11,6 +11,10 @@ import (
 	"github.com/joho/godotenv"
 )
 
+type UserState struct {
+	State string
+}
+
 func main() {
 	// var db *portscanner.DB
 	// ch := make(chan *portscanner.DB)
@@ -71,9 +75,10 @@ func main() {
 					continue
 
 				}
-				reply := tgbotapi.NewMessage(updates.Message.Chat.ID, "With or Without Password reply yes or no")
-				reply.ReplyToMessageID = updates.Message.MessageID
-				tgbot.Send(reply)
+
+				// reply := tgbotapi.NewMessage(updates.Message.Chat.ID, "With or Without Password reply yes or no")
+				// reply.ReplyToMessageID = updates.Message.MessageID
+				// tgbot.Send(reply)
 
 			}
 			continue
