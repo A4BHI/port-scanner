@@ -11,9 +11,12 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type UserState struct {
-	State string
+type PendingUpload struct {
+	Fileid string
+	State  string
 }
+
+var userstate = make(map[int64]PendingUpload)
 
 func main() {
 	// var db *portscanner.DB
