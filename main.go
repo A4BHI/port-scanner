@@ -67,9 +67,16 @@ func main() {
 			continue
 		}
 
-		if PendingUpload, exist := userstate[updates.Message.Chat.ID]; exist {
-			if PendingUpload.State == "Awaiting_Response" {
+		if pendingUpload, exist := userstate[updates.Message.Chat.ID]; exist {
+			if pendingUpload.State == "Awaiting_Response" {
 				if updates.Message.Text == "yes" {
+					userstate[updates.Message.Chat.ID] = PendingUpload{
+						Fileid: pendingUpload.Fileid,
+						State:  "Waiting_For_Password",
+					}
+					reply := tgbotapi.NewMessage(updates.Message.Chat.ID, "Enter your password.")
+					reply.ReplyToMessageID = updates.Message.MessageID
+					tgbot.Send(reply)
 
 				}
 			}
