@@ -67,6 +67,14 @@ func main() {
 			continue
 		}
 
+		if PendingUpload, exist := userstate[updates.Message.Chat.ID]; exist {
+			if PendingUpload.State == "Awaiting_Response" {
+				if updates.Message.Text == "yes" {
+
+				}
+			}
+		}
+
 		if !updates.Message.IsCommand() {
 			switch {
 			case updates.Message.Document != nil:
